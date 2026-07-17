@@ -1,0 +1,30 @@
+# === ACME MASTER SERVICES AGREEMENT (synthetic) ===
+
+This Master Services Agreement ("Agreement") is entered into between **ACME
+Consulting Services LLC** ("Provider") and the customer identified on the
+order form ("Customer").
+
+## 1. Services
+
+Provider shall perform the consulting services described in each Statement of
+Work. Either party may terminate this Agreement with **sixty (60) days written
+notice**. Termination notices shall be sent by email to legal-notices@acme-fsi.example.
+
+## 2. Fees and escalation
+
+Fees are billed monthly at the rates stated in the SOW. The hourly rate is
+escalated by **3% per annum**, beginning on the first anniversary of the
+effective date.
+
+## 3. Confidentiality
+
+Each party agrees to protect the other's confidential information with at
+least the same degree of care it uses to protect its own confidential
+information of like importance, and in any event with no less than a
+reasonable degree of care.
+
+## 4. Contact
+
+For all notices: contracts@acme-fsi.example or call +1 (415) 555-2671.
+Accounts receivable: billing@acme-fsi.example (SSN-on-file 123-45-6789,
+account no. 4111 1111 1111 1111, ABA 021000021).

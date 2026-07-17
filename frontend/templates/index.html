@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Enterprise Document Intelligence &amp; Compliance Assistant</title>
+    <link rel="stylesheet" href="/static/app.css" />
+</head>
+<body>
+    <header class="topbar">
+        <div class="brand">
+            <span class="logo" aria-hidden="true"></span>
+            <h1>EDI Compliance Assistant</h1>
+        </div>
+        <div class="topbar-actions">
+            <label for="tenant-id">Tenant</label>
+            <input id="tenant-id" type="text" placeholder="tenant id" value="acme" />
+            <label for="auth-token">Bearer token</label>
+            <input id="auth-token" type="text" placeholder="user:tenant-id (dev mode)" />
+            <button id="save-credentials" type="button">Apply</button>
+        </div>
+    </header>
+
+    <nav class="tabs" role="tablist">
+        <button class="tab is-active" data-tab="upload" role="tab" aria-selected="true">Upload</button>
+        <button class="tab" data-tab="chat" role="tab" aria-selected="false">Chat</button>
+        <button class="tab" data-tab="documents" role="tab" aria-selected="false">Documents</button>
+        <button class="tab" data-tab="audit" role="tab" aria-selected="false">Audit Log</button>
+    </nav>
+
+    <main>
+        <!-- Upload panel -->
+        <section id="tab-upload" class="panel is-active" role="tabpanel">
+            <h2>Upload a document</h2>
+            <p class="muted">
+                Documents are OCR'd, PII-redacted with Amazon Comprehend, then indexed into the
+                tenant-scoped vector store.
+            </p>
+
+            <form id="upload-form">
+                <div class="form-row">
+                    <label for="title">Document title</label>
+                    <input id="title" type="text" placeholder="ACME Master Services Agreement" required />
+                </div>
+                <div class="form-row">
+                    <label for="file">File (PDF / image / text)</label>
+                    <input id="file" type="file" required />
+                </div>
+                <button type="submit" class="primary">Upload &amp; ingest</button>
+            </form>
+
+            <div id="upload-status" class="status" role="status" aria-live="polite"></div>
+        </section>
+
+        <!-- Chat panel -->
+        <section id="tab-chat" class="panel" role="tabpanel">
+            <h2>Chat with your redacted documents</h2>
+            <p class="muted">
+                Every answer cites its source excerpts. Tenant isolation is enforced at the database
+                and the vector store layer — your answers come from your documents only.
+            </p>
+
+            <div id="messages" class="messages" aria-live="polite"></div>
+
+            <form id="chat-form" class="chat-composer">
+                <textarea id="question" placeholder="Ask a question about your documents..." rows="3" required></textarea>
+                <button type="submit" class="primary">Send</button>
+            </form>
+        </section>
+
+        <!-- Documents panel -->
+        <section id="tab-documents" class="panel" role="tabpanel">
+            <h2>Documents in this tenant</h2>
+            <button id="refresh-documents" type="button">Refresh</button>
+            <table id="documents-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Filename</th>
+                        <th>Status</th>
+                        <th>Size (KB)</th>
+                        <th>PII redacted</th>
+                        <th>Uploaded</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+
+        <!-- Audit panel -->
+        <section id="tab-audit" class="panel" role="tabpanel">
+            <h2>Audit log (admin only)</h2>
+            <p class="muted">
+                Every query, upload, and delete in this tenant is recorded.
+            </p>
+            <button id="refresh-audit" type="button">Refresh</button>
+            <table id="audit-table">
+                <thead>
+                    <tr>
+                        <th>When</th>
+                        <th>User</th>
+                        <th>Action</th>
+                        <th>Resource</th>
+                        <th>Metadata</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <span>Enterprise Document Intelligence &amp; Compliance Assistant &middot; v1.0.0</span>
+        <span id="server-status">Disconnected</span>
+    </footer>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

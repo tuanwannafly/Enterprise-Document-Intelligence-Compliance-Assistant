@@ -1,0 +1,136 @@
+/* --------------------------------------------------------------------------
+ * Enterprise Document Intelligence & Compliance Assistant - frontend styles
+ * --------------------------------------------------------------------------
+ * Minimal, dependency-free, accessible-friendly stylesheet. Designed for
+ * both desktop dashboards and laptop presentation screens.
+ * ------------------------------------------------------------------------- */
+
+:root {
+    --color-bg: #0f1115;
+    --color-panel: #181b22;
+    --color-panel-soft: #1f232c;
+    --color-border: #2b3140;
+    --color-text: #e6e8ee;
+    --color-muted: #9ba1b3;
+    --color-accent: #6ea1ff;
+    --color-accent-strong: #2f6bf0;
+    --color-success: #4ade80;
+    --color-warn: #facc15;
+    --color-danger: #f87171;
+    --shadow-lg: 0 12px 28px -12px rgba(0, 0, 0, 0.6);
+    --radius: 10px;
+    --mono: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, "Helvetica Neue", sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--color-bg); color: var(--color-text); font-family: var(--sans); }
+button { font-family: inherit; }
+
+/* ---- Topbar ------------------------------------------------------------- */
+.topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 24px; background: var(--color-panel);
+    border-bottom: 1px solid var(--color-border);
+}
+.brand { display: flex; gap: 12px; align-items: center; }
+.brand h1 { font-size: 17px; margin: 0; font-weight: 600; }
+.logo {
+    width: 22px; height: 22px; border-radius: 6px;
+    background: linear-gradient(140deg, var(--color-accent), #9a7bff);
+    box-shadow: var(--shadow-lg);
+}
+.topbar-actions { display: flex; gap: 8px; align-items: center; }
+.topbar-actions label { color: var(--color-muted); font-size: 12px; }
+.topbar-actions input {
+    background: var(--color-panel-soft); border: 1px solid var(--color-border); color: var(--color-text);
+    padding: 6px 10px; border-radius: 6px; min-width: 180px; font-size: 13px;
+}
+.topbar-actions button {
+    background: var(--color-accent-strong); color: white; border: 0;
+    padding: 7px 14px; border-radius: 6px; cursor: pointer;
+}
+.topbar-actions button:hover { filter: brightness(1.1); }
+
+/* ---- Tabs --------------------------------------------------------------- */
+.tabs {
+    display: flex; gap: 4px; padding: 8px 24px; background: var(--color-panel);
+    border-bottom: 1px solid var(--color-border);
+}
+.tab {
+    background: transparent; border: 0; color: var(--color-muted);
+    padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 14px;
+}
+.tab.is-active { background: var(--color-panel-soft); color: var(--color-text); }
+
+/* ---- Panels ------------------------------------------------------------- */
+.panel { display: none; padding: 24px; }
+.panel.is-active { display: block; }
+h2 { margin-top: 0; }
+.muted { color: var(--color-muted); margin-top: -4px; }
+
+.form-row { display: flex; flex-direction: column; margin-bottom: 14px; max-width: 540px; }
+.form-row label { color: var(--color-muted); font-size: 13px; margin-bottom: 4px; }
+.form-row input {
+    background: var(--color-panel-soft); border: 1px solid var(--color-border); color: var(--color-text);
+    padding: 10px 12px; border-radius: 6px; font-size: 14px;
+}
+.primary {
+    background: var(--color-accent-strong); color: white; border: 0;
+    padding: 10px 16px; border-radius: 6px; cursor: pointer; font-weight: 500;
+}
+.primary:hover { filter: brightness(1.1); }
+
+/* ---- Status ------------------------------------------------------------- */
+.status {
+    margin-top: 14px; padding: 12px 14px; border-radius: 8px; min-height: 22px;
+    background: var(--color-panel-soft); border: 1px solid var(--color-border); font-size: 14px;
+}
+.status.is-success { border-color: var(--color-success); color: var(--color-success); }
+.status.is-error { border-color: var(--color-danger); color: var(--color-danger); }
+.status.is-warn { border-color: var(--color-warn); color: var(--color-warn); }
+
+/* ---- Chat --------------------------------------------------------------- */
+.messages {
+    background: var(--color-panel); border: 1px solid var(--color-border);
+    border-radius: var(--radius); padding: 16px; min-height: 320px; max-height: 480px;
+    overflow-y: auto; display: flex; flex-direction: column; gap: 12px; margin-bottom: 12px;
+}
+.message { padding: 12px 14px; border-radius: 8px; max-width: 90%; }
+.message.user { background: var(--color-accent-strong); align-self: flex-end; }
+.message.assistant { background: var(--color-panel-soft); align-self: flex-start; }
+.message .meta { font-size: 11px; color: var(--color-muted); margin-top: 6px; }
+.message .citations { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+.citation {
+    background: rgba(110, 161, 255, 0.18); color: var(--color-accent);
+    border-radius: 999px; padding: 4px 10px; font-size: 12px; cursor: default;
+}
+.chat-composer { display: flex; flex-direction: column; gap: 10px; max-width: 720px; }
+.chat-composer textarea {
+    background: var(--color-panel-soft); border: 1px solid var(--color-border); color: var(--color-text);
+    border-radius: 6px; padding: 10px 12px; font-size: 14px; font-family: inherit;
+    resize: vertical; min-height: 60px;
+}
+
+/* ---- Tables ------------------------------------------------------------- */
+table {
+    width: 100%; border-collapse: collapse; margin-top: 12px; background: var(--color-panel);
+    border: 1px solid var(--color-border); border-radius: var(--radius); overflow: hidden;
+}
+th, td {
+    padding: 10px 12px; border-bottom: 1px solid var(--color-border);
+    text-align: left; font-size: 13px;
+}
+th { background: var(--color-panel-soft); color: var(--color-muted); font-weight: 500; }
+tr:last-child td { border-bottom: 0; }
+button.ghost {
+    background: transparent; border: 1px solid var(--color-border); color: var(--color-text);
+    padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 12px;
+}
+button.ghost:hover { background: var(--color-panel-soft); }
+
+/* ---- Footer ------------------------------------------------------------- */
+.footer {
+    padding: 16px 24px; color: var(--color-muted); border-top: 1px solid var(--color-border);
+    display: flex; justify-content: space-between; font-size: 13px;
+}

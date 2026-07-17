@@ -1,0 +1,13 @@
+# === ACME IT RISK REGISTER (synthetic) ===
+
+| Risk ID | Description | Likelihood | Impact | Owner | Mitigation | Status |
+|---|---|---|---|---|---|---|
+| RISK-101 | Phishing of finance team | Medium | High | CISO | Annual training + simulated phishing | Open |
+| RISK-102 | Vendor data breach | Medium | High | Vendor Mgmt | SOC2 Type II review annually | Open |
+| RISK-103 | Ransomware encryption of file shares | Low | Critical | Infrastructure | Immutable backups, network segmentation | Mitigated |
+| RISK-104 | Loss of PII on personal devices | Medium | High | IT | MDM-enforced encryption | Open |
+
+## Notes
+
+* The register is reviewed monthly by the Risk Committee.
+* Owners report status changes via the risk-management portal.

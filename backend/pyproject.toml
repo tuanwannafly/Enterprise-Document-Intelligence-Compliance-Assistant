@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "enterprise-doc-intelligence-backend"
+version = "1.0.0"
+description = "Enterprise Document Intelligence & Compliance Assistant - backend service"
+requires-python = ">=3.11"
+readme = "README.md"
+license = {text = "Proprietary"}
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["app*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+addopts = "-v --cov=app --cov-report=term-missing --cov-fail-under=70"
+testpaths = ["tests"]
+pythonpath = ["."]

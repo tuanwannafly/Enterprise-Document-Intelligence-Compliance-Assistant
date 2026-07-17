@@ -1,0 +1,13 @@
+# === GLOBEX CORRECTIVE ACTION REGISTER (synthetic) ===
+
+| NCR ID | Part | Issue | 8D Status | Closure Target |
+|---|---|---|---|---|
+| NCR-2026-001 | G-BRACKET-04 | Hole dimension 8.2mm vs spec 8.0mm | 8D step 4 (root cause) | 2026-08-05 |
+| NCR-2026-002 | G-HOUSING-12 | Surface finish out of spec | 8D step 6 (implement) | 2026-07-20 |
+| NCR-2026-003 | G-LINK-08 | Wrong steel grade supplied | 8D step 7 (prevent) | 2026-09-01 |
+
+## Root cause patterns (YTD)
+
+* 50% of NCRs trace back to supplier heat-treatment process drift.
+* 25% are dimension-control issues on the CNC line.
+* The remainder are paperwork / traceability gaps.

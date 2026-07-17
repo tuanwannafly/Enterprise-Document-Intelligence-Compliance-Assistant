@@ -1,0 +1,32 @@
+# === GLOBEX SUPPLY AGREEMENT (synthetic) ===
+
+This Supply Agreement is between **Globex Manufacturing Corp** ("Supplier")
+and the OEM identified on the cover page ("Customer").
+
+## 1. IP ownership
+
+All work product, designs, drawings, source code, and tooling created by
+Supplier under this Agreement are **work made for hire** and all right, title
+and interest vests exclusively in Customer upon payment of the corresponding
+invoice. Supplier assigns all such intellectual property to Customer.
+
+## 2. Pricing
+
+Unit pricing is fixed for the first twelve (12) months and indexed annually
+to the Producer Price Index for "Automotive parts manufacturing" (BLS series
+PCU3361M3361M).
+
+## 3. Payment terms
+
+Payment terms are **net-45 days** from invoice receipt. Disputed invoices
+shall be paid under protest and resolved within 30 days.
+
+## 4. Quality
+
+Supplier operates an IATF 16949-certified QMS. Records are retained for the
+longer of (a) the warranty period or (b) seven (7) years.
+
+## 5. Contact
+
+Supplier contact: legal@globex-mfg.example or +1 (313) 555-9988. Accounts:
+ar@globex-mfg.example (ACH routing 021000021, account 9876543210).

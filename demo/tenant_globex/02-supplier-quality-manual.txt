@@ -1,0 +1,28 @@
+# === GLOBEX SUPPLIER QUALITY MANUAL (synthetic, IATF-style) ===
+
+## 1. Scope
+
+This manual describes the Quality Management System used by Globex
+Manufacturing for production parts supplied to automotive OEMs.
+
+## 2. Document control
+
+Controlled documents are stored in the QMS portal. Superseded revisions are
+retained for ten years.
+
+## 3. Control of nonconforming product
+
+Nonconforming product is segregated in the NCR cage and reviewed by the
+Material Review Board within one business day. Decisions: rework, repair,
+scrap, or concession.
+
+## 4. Corrective actions
+
+Every NCR triggers an 8D corrective action. The default closure target is
+**30 calendar days**. Customer-impact NCRs are reported within 24 hours via
+the customer portal.
+
+## 5. Audit
+
+Internal audits cover every process at least annually. External audits by
+customers and certification bodies are welcomed.

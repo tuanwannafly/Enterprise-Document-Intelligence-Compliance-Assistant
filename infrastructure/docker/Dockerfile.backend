@@ -1,0 +1,69 @@
+# =============================================================================
+# Enterprise Document Intelligence & Compliance Assistant - backend image
+# =============================================================================
+# Multi-stage build:
+#   1. builder — install Python deps into a virtualenv
+#   2. runtime — slim final image with only the deps we need
+# =============================================================================
+
+# ---- Stage 1: builder -------------------------------------------------------
+FROM python:3.11-slim AS builder
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+WORKDIR /build
+
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends build-essential gcc libpq-dev \
+ && rm -rf /var/lib/apt/lists/*
+
+COPY backend/requirements.txt ./requirements.txt
+RUN python -m venv /opt/venv \
+ && /opt/venv/bin/pip install --upgrade pip \
+ && /opt/venv/bin/pip install -r requirements.txt
+
+# ---- Stage 2: runtime -------------------------------------------------------
+FROM python:3.11-slim AS runtime
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PATH="/opt/venv/bin:${PATH}" \
+    PORT=8000 \
+    APP_ENV=production
+
+WORKDIR /app
+
+# Required runtime libs (psycopg2 pulls in libpq at runtime; curl for healthcheck).
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends libpq5 curl tini \
+ && rm -rf /var/lib/apt/lists/*
+
+# Copy the virtualenv from the builder.
+COPY --from=builder /opt/venv /opt/venv
+
+# Copy the application code.
+COPY backend/app ./app
+COPY backend/alembic ./alembic
+COPY backend/alembic.ini ./alembic.ini
+COPY backend/pyproject.toml ./pyproject.toml
+
+# Non-root user for the runtime container.
+RUN groupadd -r edi && useradd -r -g edi -d /app -s /usr/sbin/nologin edi \
+ && chown -R edi:edi /app /opt/venv
+USER edi
+
+EXPOSE 8000
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
+    CMD curl -fsS http://localhost:8000/api/v1/health || exit 1
+
+# tini = clean signal handling + zombie reaping.
+ENTRYPOINT ["/usr/bin/tini", "--"]
+
+# Run database migrations first, then boot the API. In production these would
+# be separate steps in the CI/CD pipeline; for local docker-compose this is
+# convenient.
+CMD ["bash", "-lc", "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000} --workers 2 --proxy-headers --log-level info"]

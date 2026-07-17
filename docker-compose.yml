@@ -1,0 +1,74 @@
+version: "3.9"
+
+# =============================================================================
+# Enterprise Document Intelligence & Compliance Assistant - local stack
+# =============================================================================
+# Bring up: Postgres + Qdrant + Backend. Run with:
+#   docker compose -f docker-compose.yml --env-file backend/.env up
+# Optional frontend: ``docker compose --profile frontend up`` (served by
+# nginx against the backend's static files).
+# =============================================================================
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: edi
+      POSTGRES_USER: edi_owner
+      POSTGRES_PASSWORD: edi_owner
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+      - ./backend/app/db/bootstrap.sql:/docker-entrypoint-initdb.d/00-bootstrap.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U edi_owner -d edi"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  qdrant:
+    image: qdrant/qdrant:v1.12.0
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant-data:/qdrant/storage
+    environment:
+      QDRANT__SERVICE__GRPC_PORT: 6334
+
+  backend:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/Dockerfile.backend
+    depends_on:
+      postgres:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
+    environment:
+      APP_ENV: development
+      DATABASE_URL: postgresql+psycopg2://edi_owner:edi_owner@postgres:5432/edi
+      VECTOR_STORE: qdrant
+      QDRANT_URL: http://qdrant:6333
+      DOCUMENTS_BUCKET: edi-documents-dev
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-changeme}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-changeme}
+      AWS_REGION: ${AWS_REGION:-us-east-1}
+      DEV_AUTH_MODE: "true"
+      DEV_AUTH_SHARED_SECRET: ${DEV_AUTH_SHARED_SECRET:-dev-only-do-not-use-in-prod}
+    ports:
+      - "8000:8000"
+
+  frontend:
+    profiles: ["frontend"]
+    image: nginx:1.27-alpine
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+    ports:
+      - "3000:80"
+
+volumes:
+  pg-data:
+  qdrant-data:

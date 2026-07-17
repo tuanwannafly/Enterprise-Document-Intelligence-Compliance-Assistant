@@ -1,0 +1,30 @@
+# === ACME ANTI-MONEY-LAUNDERING POLICY (synthetic) ===
+
+Effective date: 2026-01-15. Owner: Compliance Officer, ACME.
+
+## 1. Customer Identification Program (CIP)
+
+All new customers must provide the following at onboarding:
+
+* Full legal name
+* Date of birth
+* Residential address
+* Government identifier (passport, driver's licence, or SSN)
+* Source-of-funds declaration
+
+## 2. Suspicious Activity Reporting (SAR)
+
+Any transaction exceeding **USD 10,000** in a single business day, or any
+pattern of transactions that raises concern, must be escalated to the
+Compliance Officer within 24 hours. SARs are confidential; do not disclose
+the existence of a SAR to the customer.
+
+## 3. Sanctions screening
+
+Every counterparty is screened against the latest OFAC sanctions list at
+onboarding and quarterly thereafter. Contact Compliance at
+sanctions@acme-fsi.example for the screening workflow.
+
+## 4. Training
+
+All staff complete annual AML training. Records are retained for five years.
